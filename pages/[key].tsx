@@ -16,10 +16,12 @@ const Spots = styled.div`
   background-color: rgba(0, 0, 0, 0.1);
   display: grid;
   grid-template-columns: 1fr 4rem 4rem 4rem 4rem 1fr;
-  grid-template-rows: 4rem 4rem 4rem 4rem 4rem;
-  grid-template-areas: ". . . . . ." ". . two . one ." ". . . . . ." ". four . three . ." ". . . . . .";
+  grid-template-rows: 4rem 4rem 4rem 4rem;
+  grid-template-areas: ". . . . . ." ". . three four . ." ". one . . two ." ". . . . . .";
   column-gap: 1rem;
   row-gap: 1rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
 `;
 
 const Spot = styled.button<{ active: boolean; area: string }>`
@@ -69,6 +71,7 @@ const Home = () => {
   };
 
   const handleClearSpots = async () => {
+    setSpots([false, false, false, false]);
     await axios.put(apiRoute, { spots: [false, false, false, false] });
     mutate(apiRoute);
   };
@@ -115,10 +118,24 @@ const Home = () => {
     <main>
       <h1>Event {key}</h1>
       <ButtonGroup>
-        <button onClick={handleClearSpots}>
+        <button
+          onClick={handleClearSpots}
+          disabled={
+            JSON.stringify(spots) ===
+              JSON.stringify([false, false, false, false]) &&
+            JSON.stringify(data) ===
+              JSON.stringify([false, false, false, false])
+          }
+        >
           Clear <FontAwesomeIcon icon={faEraser} />
         </button>
-        <button onClick={handleSubmitSpots}>
+        <button
+          onClick={handleSubmitSpots}
+          disabled={
+            JSON.stringify(spots) ===
+            JSON.stringify([false, false, false, false])
+          }
+        >
           Submit <FontAwesomeIcon icon={faShareFromSquare} />
         </button>
       </ButtonGroup>

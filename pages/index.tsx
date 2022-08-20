@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import {
   faArrowRight,
   faCalendarPlus,
@@ -7,6 +8,10 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import { ButtonGroup } from "../shared/styles";
+
+const JoinKey = styled.input`
+  text-transform: uppercase;
+`;
 
 const Home = () => {
   const router = useRouter();
@@ -78,7 +83,7 @@ const Home = () => {
       <section>
         <h2>Join Event</h2>
         <label htmlFor="joinEventKey">Event Key</label>
-        <input
+        <JoinKey
           id="joinEventKey"
           type="text"
           maxLength={6}

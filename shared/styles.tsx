@@ -40,6 +40,7 @@ export const globalStyles = (
         :disabled {
           background-color: #242331;
           border-color: #09080c;
+          color: rgba(255, 255, 255, 0.7);
           cursor: not-allowed;
         }
       }

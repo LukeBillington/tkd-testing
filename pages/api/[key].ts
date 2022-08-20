@@ -4,8 +4,7 @@ const store: Record<string, [boolean, boolean, boolean, boolean]> = {};
 
 const generateStoreKey = (): string => {
   let result = "";
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const characters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   for (let i = 0; i < 6; i++) {
     result += characters.charAt(Math.floor(Math.random() * characters.length));
   }
@@ -16,9 +15,9 @@ const generateStoreKey = (): string => {
 };
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
-  const { key } = req.query;
+  const key = (req.query.key as string).toUpperCase();
   if (req.method === "GET") {
-    if (key === "all") {
+    if (key === "ALL") {
       res.status(200).json(store);
     } else {
       const item: [boolean, boolean, boolean, boolean] | undefined =
