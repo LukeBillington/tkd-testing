@@ -4,6 +4,7 @@ import {
   faEraser,
   faShareFromSquare,
   faArrowLeft,
+  faBolt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
@@ -22,6 +23,7 @@ const Spots = styled.div`
   row-gap: 1rem;
   border-radius: 0.5rem;
   margin-top: 1rem;
+  margin-bottom: 1rem;
 `;
 
 const Spot = styled.button<{ active: boolean; area: string }>`
@@ -34,6 +36,10 @@ const Spot = styled.button<{ active: boolean; area: string }>`
   font-size: 1.5rem;
   font-weight: bold;
   cursor: pointer;
+`;
+
+const AllSpots = styled.button`
+  width: 100%;
 `;
 
 const Home = () => {
@@ -74,6 +80,10 @@ const Home = () => {
     setSpots([false, false, false, false]);
     await axios.put(apiRoute, { spots: [false, false, false, false] });
     mutate(apiRoute);
+  };
+
+  const handleAllSpots = async () => {
+    setSpots([true, true, true, true]);
   };
 
   const handleBack = () => {
@@ -177,6 +187,14 @@ const Home = () => {
           4 {spots[3] && <FontAwesomeIcon icon={faCircleCheck} />}
         </Spot>
       </Spots>
+      <AllSpots
+        onClick={handleAllSpots}
+        disabled={
+          JSON.stringify(spots) === JSON.stringify([true, true, true, true])
+        }
+      >
+        <FontAwesomeIcon icon={faBolt} /> Select All
+      </AllSpots>
     </main>
   );
 };
